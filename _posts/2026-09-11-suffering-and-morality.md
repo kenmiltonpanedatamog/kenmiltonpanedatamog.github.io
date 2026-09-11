@@ -2,10 +2,10 @@
 layout: post
 title: Suffering and Morality
 date: 2026-09-11
-tags: humss
-featured: false
-sticky: false
+tags: [humss]
+categories: [essays]
 ---
+
 (This is an uncompleted essay written on 2026-08-19)
 
 Suffering, the thought that there are people and animals experiencing pain and hardship, have been on my mind for weeks I suppose. It has been raining in that period of thinking, and I really had a lot of thoughts about the morality aspect of those suffering- specifically our moral obligation as individuals to help as much as we can, or at least start thinking about the suffering of others to hopefully inspire ourselves to make a contribution.
@@ -34,3 +34,4 @@ One of the problems that arises when people read Singer's essay is the implicati
 Singer's call to action- that we have a moral obligation to sacrifice luxuries to help people still holds. But there is a time when people cannot help, and it's okay. It is a 'blameless wrongdoing' for people not to help, just because they still haven't met the line of luxury, whatever that means to them.
 
 So what should we do?
+

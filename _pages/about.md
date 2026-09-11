@@ -1,6 +1,6 @@
 ---
 layout: about
-title: KMPT
+title: home
 permalink: /
 subtitle: Ken Milton Paneda Tam-og
 
@@ -11,7 +11,6 @@ profile:
   more_info: >
     <p>BS Computer Science</p>
     <p>Saint Louis University</p>
-    <p>Philippines</p>
 
 selected_papers: false # includes a list of papers marked as "selected={true}"
 social: false # includes social icons at the bottom of the page
@@ -32,3 +31,11 @@ latest_posts:
 Hi, I'm Ken. Welcome to my main space on the Internet!
 
 Here, you would find my writings, computer/programming projects, and other pages that showcases my profile and passions.
+
+Basic profile:
+- Current city & country: **Baguio City, Philippines**
+- Date of birth: **November 2006**
+- Gender: **Male / Lalaki**
+- Languages: **English, Filipino, Ilocano**
+- Marital status: **Single**
+- Nationality: **Filipino**

@@ -8,7 +8,7 @@ children:
   - title: bookshelf
     permalink: /books/
   - title: curriculum vitae
-    permalink: /cv/
+    permalink: /404.html/
   - title: news
     permalink: /news/
   - title: repositories
