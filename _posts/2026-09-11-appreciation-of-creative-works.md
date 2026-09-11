@@ -2,7 +2,7 @@
 layout: post
 title: Appreciation of creative works
 date: 2026-09-11
-tags: [snippet, "2026-06-17"]
+tags: [snippet, "creative-writing", "2026-06-17"]
 categories: [archives]
 ---
 
