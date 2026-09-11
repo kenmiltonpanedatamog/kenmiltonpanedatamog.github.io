@@ -2,7 +2,7 @@
 layout: post
 title: Me in the mountains
 date: 2026-09-11
-tags: [experience]
+tags: [snippet, experience]
 sticky: false
 ---
 
