@@ -478,8 +478,8 @@
 
             const title = document.getElementById('fm-title').value.trim();
             const date = document.getElementById('fm-date').value;
-            const tags = document.getElementById('fm-tags').value.split(',').map(t => t.trim()).filter(t => t).join(', ');
-            const categories = document.getElementById('fm-categories').value.split(',').map(t => t.trim()).filter(t => t).join(', ');
+            const tags = document.getElementById('fm-tags').value.split(',').map(t => t.trim()).filter(t => t).map(t => t.startsWith('"') && t.endsWith('"') ? t : `"${t}"`).join(', ');
+            const categories = document.getElementById('fm-categories').value.split(',').map(t => t.trim()).filter(t => t).map(t => t.startsWith('"') && t.endsWith('"') ? t : `"${t}"`).join(', ');
             const sticky = document.getElementById('fm-sticky').checked;
             const useObsidian = document.getElementById('fmt-obsidian').checked;
             const thumbnail = document.getElementById('fm-thumbnail').value.trim();
