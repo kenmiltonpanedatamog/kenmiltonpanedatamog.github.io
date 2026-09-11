@@ -1,0 +1,22 @@
+---
+layout: post
+title: Reading The World-Ending Fire
+date: 2026-09-11
+tags: ["literature", "2026-06-30"]
+categories: ["essays", "archives"]
+---
+
+I attempted to read this book two times before. I discovered it in a Jared Henderson book recommendation video on YouTube some year or two ago. The title hooked me so much that I romanticized reading it, and I even made my first blog referencing the title. But enough of my chatter, I have some words upon finishing this collection of essays by Wendell Berry. This book is long and dense, and requires more reading concentration to get something out of it, so here are some thoughts that remained from my reading.
+
+The most important points to get from reading this is the author's advocacy for a society that is local rather than global, it ties with his main advocacy of caring for the environment, particularly the lands. As a farmer, and an old man, he definitely experienced living the life he is advocating. His philosophy centers around the careful stewardship of nature, by not letting the future, and its innovations run on his life. His philosophy advocates for the careful consideration that innovation, globalization, industrialization, and any -ions brought about by the future are the reasons for the destruction of nature.
+
+He is akin to Henry David Thoreau in a sense because he is advocating that the way to becoming good stewards of nature is by living in nature, rather than trying to fix it with more innovation. I got a sense throughout this book that although he may sound impractical at times, there is great wisdom in his anti-modernity ideas.
+
+I would be a huge hypocrite to say that I would want to live in the past that he is advocating. I was born and raised with the industrial and technological advancements of this futuristic world. I cannot imagine living without the conveniences and speed of the modern world. I'm curious though, whether his ideas changed or at least considered the practicalities and actual benefits of the current world. I think it is a valid question to ask considering that most, if not all of the essays in the book are published before I was even born. In the 19 years that has passed, considering he is still alive, maybe some of his ideas changed, or maybe evolved to consider the modern world.
+
+Despite my defiance and inevitable acceptance of the modern world and its flaws, I still recognize the truth in his ideas, that the governments of the world failed to protect the environment, as they allowed corporations, entities demonstrably bigger than any single human or even small communities ever could, to destroy the environment. These corporations and even governments, after realizing what they did, just justified and tried to minimize them in the name of progress, and some don't even stop. This realization should make us consider how we, as participants of the modern economy, became indirect participants of the destruction of our environment. They, and in turn we, failed the farmers, the local communities, and the environment in favor of the CEOs, conglomerates, and the economy.
+
+The answer to the problem of the environment is not to stop these corporations and bring the present back to the way we used to in the past. It is merely wishful thinking to hope for such drastic undoing of what already is irreversible. The answer lies in all of us, in our daily responses or submission to society's destructive ways. When we choose to recognize that there is indeed a problem, our response should be to change how we as individuals live in nature, before we advocate for big changes that we hope will solve all of our environmental problems. While big changes do change a lot, they also require changing immense things such as our faith in technologies, and our dependence on the economy to be good, which all requires the destruction of the environment one way or another.
+
+Maybe the best course of action, after recognizing the problem, is for us as individuals to instill change within our ways first. We could vote with our money, and our faith. When we stop our faithful dependence, we rid ourselves of the obligation to participate in every destructive way that is destroying our environment. When we buy only from the corporations that do not actively destroy the environment, when we buy only what is necessary, we are still making some changes despite indirectly participating in the destructive economy. It is in these little ways that we can cultivate the necessary culture that cares for the environment.
+

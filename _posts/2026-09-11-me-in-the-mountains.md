@@ -3,7 +3,7 @@ layout: post
 title: Me in the mountains
 date: 2026-09-11
 tags: [experience]
-sticky: true
+sticky: false
 ---
 
 On 2026-05-30, I went on a mountain camping trip with two of my friends. It was my first time sleeping on a mountain with nothing but a tent. I took so many cool photos with my CampSnap-Pro camera. Here are my favorites with me on it:
