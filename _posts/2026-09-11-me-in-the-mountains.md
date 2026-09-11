@@ -6,7 +6,7 @@ tags: [experience]
 sticky: true
 ---
 
-On 30 May 2026, I went on a mountain camping trip with two of my friends. It was my first time sleeping on a mountain with nothing but a tent. I took so many cool photos with my CampSnap-Pro camera. Here are my favorites with me on it:
+On 2026-05-30, I went on a mountain camping trip with two of my friends. It was my first time sleeping on a mountain with nothing but a tent. I took so many cool photos with my CampSnap-Pro camera. Here are my favorites with me on it:
 
 {% include figure.liquid loading="eager" path="assets/img/yangbew_1.JPG" class="img-fluid rounded z-depth-1" zoomable=true %}
 
