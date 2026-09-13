@@ -39,3 +39,6 @@ Basic profile:
 - Languages: **English, Filipino, Ilocano**
 - Marital status: **Single**
 - Nationality: **Filipino**
+
+Social media accounts:
+- [Facebook](https://www.facebook.com/profile.php?id=61556761568251)
