@@ -2,7 +2,7 @@
 layout: post
 title: Suffering and Morality
 date: 2026-09-11
-tags: [humss, "2026-08-19"]
+tags: [philosophy, "2026-08-19"]
 categories: [essays, archives]
 ---
 Suffering, the thought that there are people and animals experiencing pain and hardship, has been on my mind for weeks I suppose. It has been raining in that period of thinking, and I really had a lot of thoughts about the moral aspect of those suffering- specifically our moral obligation as individuals to help as much as we can, or at least start thinking about the suffering of others to hopefully inspire ourselves to make a contribution.
