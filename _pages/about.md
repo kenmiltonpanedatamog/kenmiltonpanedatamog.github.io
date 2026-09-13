@@ -9,8 +9,6 @@ profile:
   image: prof_pic.jpg
   image_circular: true # crops the image to make it circular
   more_info: >
-    <p>BS Computer Science</p>
-    <p>Saint Louis University</p>
 
 selected_papers: false # includes a list of papers marked as "selected={true}"
 social: false # includes social icons at the bottom of the page
@@ -28,7 +26,7 @@ latest_posts:
 
 ---
 
-Hi, I'm Ken. Welcome to my main space on the internet where I share my programming projects, technical explorations, and creative works.
+Hi, I'm Ken. Welcome to my main space on the internet where I share my programming projects, technical explorations, and creative works. I'm currently studying Computer Science at Saint Louis University, expected to graduate sometime in 2029.
 
 Basic profile:
 - Current city & country: **Baguio City, Philippines**
