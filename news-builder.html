@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jekyll Local News Builder</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <!-- Add IndexedDB wrapper for caching directory handle -->
+    <script src="https://cdn.jsdelivr.net/npm/idb-keyval@6/dist/umd.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .drag-handle { cursor: grab; }
+        .drag-handle:active { cursor: grabbing; }
+        .dropzone.dragover { background-color: #e2e8f0; border-color: #3b82f6; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans p-6">
+
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-6">
+        <div class="flex-1 max-w-4xl">
+            <h1 class="text-4xl font-bold mb-6 text-gray-900"><i class="fa-solid fa-newspaper mr-2"></i> Local News Builder</h1>
+
+            <!-- Connection Section -->
+            <div id="setup-section" class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-8">
+                <h2 class="text-xl font-semibold mb-2">Connect to Project</h2>
+                <p class="text-gray-600 mb-4">Click below and select your Jekyll root folder to grant the browser permission to save files directly to <code>_news</code> and <code>assets/img</code>.</p>
+                <button id="connect-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded transition">
+                    <i class="fa-solid fa-folder-open mr-2"></i> Select Project Folder
+                </button>
+                <p id="connection-status" class="mt-3 text-sm text-green-600 hidden"><i class="fa-solid fa-check-circle mr-1"></i> Connected to folder!</p>
+            </div>
+
+            <!-- Editor Section -->
+            <div id="editor-section" class="hidden opacity-50 pointer-events-none transition-opacity duration-300">
+                
+                <!-- Front Matter -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
+                    <h2 class="text-lg font-semibold mb-4 border-b pb-2">Front Matter</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Date (Filename)</label>
+                            <input type="date" id="fm-date" class="w-full border border-gray-300 rounded p-2 focus:ring focus:ring-blue-200 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Slug / Suffix (Optional)</label>
+                            <input type="text" id="fm-slug" class="w-full border border-gray-300 rounded p-2 focus:ring focus:ring-blue-200 focus:border-blue-500" placeholder="e.g. update-1">
+                            <p class="text-xs text-gray-500 mt-1">Leave empty to just use date.md</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-6 mt-4 border-t pt-4">
+                        <div class="flex items-center">
+                            <input type="checkbox" id="fm-inline" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" checked>
+                            <label for="fm-inline" class="ml-2 block text-sm text-gray-900 font-medium">Inline (Show content directly in news feed)</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="fm-related" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                            <label for="fm-related" class="ml-2 block text-sm text-gray-900 font-medium">Show related posts</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blocks Area -->
+                <div class="mb-6">
+                    <h2 class="text-lg font-semibold mb-2">Content Blocks</h2>
+                    <div id="blocks-container" class="space-y-4 min-h-[100px] p-2 bg-gray-100 rounded-lg border border-gray-200">
+                        <!-- Blocks will be injected here -->
+                    </div>
+                </div>
+
+                <!-- Add Block Controls -->
+                <div class="flex space-x-3 mb-8">
+                    <button id="add-text-btn" class="bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 font-medium py-2 px-4 rounded shadow-sm">
+                        <i class="fa-solid fa-align-left mr-1"></i> Add Text
+                    </button>
+                    <button id="add-image-btn" class="bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 font-medium py-2 px-4 rounded shadow-sm">
+                        <i class="fa-regular fa-image mr-1"></i> Add Image
+                    </button>
+                </div>
+
+                <!-- Output Settings -->
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200 mb-6 flex items-center">
+                    <input type="checkbox" id="fmt-obsidian" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                    <label for="fmt-obsidian" class="ml-2 block text-sm text-gray-900">Use Native Obsidian Image Formatting <code>![[filename.ext]]</code></label>
+                </div>
+
+                <!-- Save Action -->
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex justify-between items-center">
+                    <span id="save-status" class="text-sm text-gray-500">All files will be saved directly to your local project.</span>
+                    <button id="save-btn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg shadow transition text-lg">
+                        <i class="fa-solid fa-save mr-2"></i> Save News
+                    </button>
+                </div>
+                
+            </div>
+        </div>
+
+        <!-- Sidebar / Guides -->
+        <div class="w-full md:w-64 shrink-0 mt-8 md:mt-0">
+            <div class="bg-white p-5 rounded-lg shadow-sm border border-gray-200 sticky top-6">
+                <h3 class="font-bold text-gray-800 mb-4 border-b pb-2"><i class="fa-brands fa-markdown mr-1"></i> Formatting Guide</h3>
+                
+                <div class="space-y-4 text-sm text-gray-700">
+                    <div>
+                        <p class="font-semibold text-gray-900 text-xs uppercase tracking-wide">Headers</p>
+                        <code class="bg-gray-100 px-1 py-0.5 rounded text-xs block mt-1"># H1 Heading</code>
+                        <code class="bg-gray-100 px-1 py-0.5 rounded text-xs block mt-1">## H2 Heading</code>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-900 text-xs uppercase tracking-wide">Text Styles</p>
+                        <code class="bg-gray-100 px-1 py-0.5 rounded text-xs block mt-1">**bold text**</code>
+                        <code class="bg-gray-100 px-1 py-0.5 rounded text-xs block mt-1">*italic text*</code>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-900 text-xs uppercase tracking-wide">Links</p>
+                        <code class="bg-gray-100 px-1 py-0.5 rounded text-xs block mt-1">[Link Text](https://url.com)</code>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-900 text-xs uppercase tracking-wide">Lists</p>
+                        <code class="bg-gray-100 px-1 py-0.5 rounded text-xs block mt-1">- Bullet item</code>
+                        <code class="bg-gray-100 px-1 py-0.5 rounded text-xs block mt-1">1. Numbered item</code>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-900 text-xs uppercase tracking-wide">Quotes</p>
+                        <code class="bg-gray-100 px-1 py-0.5 rounded text-xs block mt-1">> Quoted text</code>
+                    </div>
+                </div>
+                
+                <button id="disconnect-btn" class="mt-8 w-full text-center text-xs text-red-500 hover:text-red-700 transition">Disconnect Folder</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Block Templates -->
+    <template id="tpl-text-block">
+        <div class="block-item bg-white p-4 rounded shadow-sm border border-gray-200 flex items-start group" data-type="text">
+            <div class="drag-handle text-gray-400 hover:text-gray-600 p-2 mr-2"><i class="fa-solid fa-grip-vertical"></i></div>
+            <div class="flex-1">
+                <textarea class="w-full border border-gray-300 rounded p-3 h-32 font-mono text-sm focus:ring focus:ring-blue-200 focus:border-blue-500" placeholder="Write markdown here..."></textarea>
+            </div>
+            <button class="delete-btn ml-2 p-2 text-red-400 hover:text-red-600 opacity-0 group-hover:opacity-100 transition"><i class="fa-solid fa-trash"></i></button>
+        </div>
+    </template>
+
+    <template id="tpl-image-block">
+        <div class="block-item bg-white p-4 rounded shadow-sm border border-gray-200 flex items-start group" data-type="image" data-img-path="" data-img-filename="">
+            <div class="drag-handle text-gray-400 hover:text-gray-600 p-2 mr-2"><i class="fa-solid fa-grip-vertical"></i></div>
+            <div class="flex-1">
+                <div class="dropzone border-2 border-dashed border-gray-300 rounded-lg p-10 text-center transition">
+                    <i class="fa-solid fa-cloud-arrow-up text-3xl text-gray-400 mb-2"></i>
+                    <p class="text-gray-600">Drag & Drop an image file here</p>
+                    <p class="text-xs text-gray-400 mt-1">Image will be saved to assets/img/</p>
+                </div>
+                <div class="preview hidden flex items-center p-2 bg-gray-50 rounded border border-gray-200">
+                    <img src="" class="h-24 w-24 object-cover rounded shadow-sm mr-4" />
+                    <div>
+                        <p class="font-medium text-gray-800 filename-display"></p>
+                        <p class="text-xs text-gray-500 path-display"></p>
+                    </div>
+                </div>
+            </div>
+            <button class="delete-btn ml-2 p-2 text-red-400 hover:text-red-600 opacity-0 group-hover:opacity-100 transition"><i class="fa-solid fa-trash"></i></button>
+        </div>
+    </template>
+
+    <script>
+        let dirHandle = null;
+        
+        // Initialize date field
+        function initDate() {
+            document.getElementById('fm-date').value = new Date().toISOString().split('T')[0];
+        }
+        initDate();
+
+        // Setup Sortable
+        const blocksContainer = document.getElementById('blocks-container');
+        new Sortable(blocksContainer, {
+            animation: 150,
+            handle: '.drag-handle',
+            ghostClass: 'opacity-50'
+        });
+
+        // Connection Logic
+        async function enableEditor(handle) {
+            dirHandle = handle;
+            document.getElementById('connection-status').classList.remove('hidden');
+            const btn = document.getElementById('connect-btn');
+            btn.classList.replace('bg-blue-600', 'bg-green-600');
+            btn.classList.replace('hover:bg-blue-700', 'hover:bg-green-700');
+            btn.innerHTML = '<i class="fa-solid fa-check mr-2"></i> Folder Connected';
+            
+            const editor = document.getElementById('editor-section');
+            editor.classList.remove('hidden');
+            setTimeout(() => {
+                editor.classList.remove('opacity-50', 'pointer-events-none');
+            }, 10);
+        }
+
+        // Check cache on load
+        window.addEventListener('DOMContentLoaded', async () => {
+            const cachedHandle = await idbKeyval.get('jekyll-dir');
+            if (cachedHandle) {
+                try {
+                    const perm = await cachedHandle.verifyPermission({ mode: 'readwrite' });
+                    if (perm === 'granted') {
+                        enableEditor(cachedHandle);
+                        if (document.getElementById('blocks-container').children.length === 0) {
+                            addTextBlock();
+                        }
+                    } else {
+                        document.getElementById('connect-btn').innerText = "Restore Folder Connection";
+                    }
+                } catch (e) {
+                    console.error("Cache verification failed", e);
+                }
+            }
+        });
+
+        document.getElementById('connect-btn').addEventListener('click', async () => {
+            try {
+                let cachedHandle = await idbKeyval.get('jekyll-dir');
+                if (cachedHandle) {
+                    const perm = await cachedHandle.requestPermission({ mode: 'readwrite' });
+                    if (perm === 'granted') {
+                        enableEditor(cachedHandle);
+                        if (document.getElementById('blocks-container').children.length === 0) addTextBlock();
+                        return;
+                    }
+                }
+
+                const handle = await window.showDirectoryPicker({ mode: 'readwrite' });
+                
+                try {
+                    await handle.getDirectoryHandle('_news');
+                } catch(e) {
+                    alert("Warning: Could not find '_news' folder. Are you sure you selected the Jekyll root folder?");
+                }
+
+                await idbKeyval.set('jekyll-dir', handle);
+                enableEditor(handle);
+                if (document.getElementById('blocks-container').children.length === 0) addTextBlock();
+
+            } catch (err) {
+                console.error(err);
+                if (err.name !== 'AbortError') {
+                    alert('Error connecting folder: ' + err.message);
+                }
+            }
+        });
+
+        document.getElementById('disconnect-btn').addEventListener('click', async () => {
+            await idbKeyval.del('jekyll-dir');
+            location.reload();
+        });
+
+        // Block Management
+        function addTextBlock() {
+            const template = document.getElementById('tpl-text-block');
+            const clone = template.content.cloneNode(true);
+            const el = clone.querySelector('.block-item');
+            setupBlockActions(el);
+            blocksContainer.appendChild(el);
+        }
+
+        function addImageBlock() {
+            const template = document.getElementById('tpl-image-block');
+            const clone = template.content.cloneNode(true);
+            const el = clone.querySelector('.block-item');
+            setupBlockActions(el);
+            setupDropzone(el);
+            blocksContainer.appendChild(el);
+        }
+
+        document.getElementById('add-text-btn').addEventListener('click', addTextBlock);
+        document.getElementById('add-image-btn').addEventListener('click', addImageBlock);
+
+        function setupBlockActions(blockEl) {
+            blockEl.querySelector('.delete-btn').addEventListener('click', () => {
+                blockEl.remove();
+            });
+        }
+
+        function setupDropzone(blockEl) {
+            const dropzone = blockEl.querySelector('.dropzone');
+            const preview = blockEl.querySelector('.preview');
+            
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropzone.addEventListener(eventName, preventDefaults, false);
+            });
+
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropzone.addEventListener(eventName, () => dropzone.classList.add('dragover'), false);
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropzone.addEventListener(eventName, () => dropzone.classList.remove('dragover'), false);
+            });
+
+            dropzone.addEventListener('drop', async (e) => {
+                const file = e.dataTransfer.files[0];
+                if (!file) return;
+                if (!file.type.startsWith('image/')) {
+                    alert('Please drop an image file.');
+                    return;
+                }
+
+                if (!dirHandle) {
+                    alert('You must connect the project folder first!');
+                    return;
+                }
+
+                dropzone.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-3xl text-gray-400 mb-2"></i><p>Saving image...</p>';
+
+                try {
+                    const assetsHandle = await dirHandle.getDirectoryHandle('assets', { create: true });
+                    const imgHandle = await assetsHandle.getDirectoryHandle('img', { create: true });
+                    
+                    const safeName = file.name.replace(/[^a-zA-Z0-9.\-_]/g, '_');
+                    const fileHandle = await imgHandle.getFileHandle(safeName, { create: true });
+                    
+                    const writable = await fileHandle.createWritable();
+                    await writable.write(file);
+                    await writable.close();
+
+                    const imgPath = `assets/img/${safeName}`;
+                    blockEl.dataset.imgPath = imgPath;
+                    blockEl.dataset.imgFilename = safeName;
+                    
+                    dropzone.classList.add('hidden');
+                    preview.classList.remove('hidden');
+                    preview.querySelector('img').src = URL.createObjectURL(file);
+                    preview.querySelector('.filename-display').innerText = safeName;
+                    preview.querySelector('.path-display').innerText = imgPath;
+
+                } catch (err) {
+                    console.error(err);
+                    alert('Failed to save image: ' + err.message);
+                    dropzone.innerHTML = '<i class="fa-solid fa-triangle-exclamation text-red-500 text-3xl mb-2"></i><p>Error saving. Try again.</p>';
+                }
+            });
+        }
+
+        // Generate and Save News
+        document.getElementById('save-btn').addEventListener('click', async () => {
+            if (!dirHandle) return alert('Please connect project folder first!');
+
+            const date = document.getElementById('fm-date').value;
+            const slugInput = document.getElementById('fm-slug').value.trim();
+            const isInline = document.getElementById('fm-inline').checked;
+            const isRelated = document.getElementById('fm-related').checked;
+            const useObsidian = document.getElementById('fmt-obsidian').checked;
+
+            if (!date) return alert('Please enter a date.');
+
+            const saveBtn = document.getElementById('save-btn');
+            const originalBtnHtml = saveBtn.innerHTML;
+            saveBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Saving...';
+            saveBtn.disabled = true;
+
+            try {
+                // Generate Markdown
+                let md = `---\n`;
+                md += `layout: post\n`;
+                md += `date: ${date}\n`;
+                md += `inline: ${isInline}\n`;
+                md += `related_posts: ${isRelated}\n`;
+                md += `---\n\n`;
+
+                const blockEls = document.querySelectorAll('.block-item');
+                blockEls.forEach(el => {
+                    const type = el.dataset.type;
+                    if (type === 'text') {
+                        md += el.querySelector('textarea').value + '\n\n';
+                    } else if (type === 'image') {
+                        const imgPath = el.dataset.imgPath;
+                        const imgFilename = el.dataset.imgFilename;
+                        if (imgPath) {
+                            if (useObsidian) {
+                                md += `![[${imgFilename}]]\n\n`;
+                            } else {
+                                md += `{% include figure.liquid loading="eager" path="${imgPath}" class="img-fluid rounded z-depth-1" zoomable=true %}\n\n`;
+                            }
+                        }
+                    }
+                });
+
+                // Generate filename
+                let filename = `${date}.md`;
+                if (slugInput) {
+                    const slug = slugInput.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                    filename = `${date}-${slug}.md`;
+                }
+
+                // Write file
+                const newsHandle = await dirHandle.getDirectoryHandle('_news', { create: true });
+                const fileHandle = await newsHandle.getFileHandle(filename, { create: true });
+                const writable = await fileHandle.createWritable();
+                await writable.write(md);
+                await writable.close();
+
+                document.getElementById('save-status').innerHTML = `<span class="text-green-600 font-medium"><i class="fa-solid fa-check mr-1"></i> Saved successfully to _news/${filename}</span>`;
+                
+                // Clear form for next news after 2 seconds
+                setTimeout(() => {
+                    document.getElementById('fm-slug').value = '';
+                    document.getElementById('blocks-container').innerHTML = '';
+                    addTextBlock();
+                    initDate();
+                    
+                    saveBtn.innerHTML = originalBtnHtml;
+                    saveBtn.disabled = false;
+                    document.getElementById('save-status').innerHTML = '<span class="text-gray-500">Form cleared for a new entry.</span>';
+                }, 2000);
+
+            } catch (err) {
+                console.error(err);
+                alert('Error saving news: ' + err.message);
+                saveBtn.innerHTML = originalBtnHtml;
+                saveBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
