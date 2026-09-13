@@ -16,21 +16,19 @@ selected_papers: false # includes a list of papers marked as "selected={true}"
 social: false # includes social icons at the bottom of the page
 
 announcements:
-  enabled: false # includes a list of news items
+  enabled: true # includes a list of news items
   scrollable: true # adds a vertical scroll bar if there are more than 3 news items
-  limit: 5 # leave blank to include all the news in the `_news` folder
+  limit: 3 # leave blank to include all the news in the `_news` folder
 
 latest_posts:
-  enabled: false
+  enabled: true
   scrollable: true # adds a vertical scroll bar if there are more than 3 new posts items
   limit: 3 # leave blank to include all the blog posts
 ---
 
 ---
 
-Hi, I'm Ken. Welcome to my main space on the Internet!
-
-Here, you would find my writings, computer/programming projects, and other pages that showcases my profile and passions.
+Hi, I'm Ken. Welcome to my main space on the internet where I share my programming projects, technical explorations, and creative works.
 
 Basic profile:
 - Current city & country: **Baguio City, Philippines**
@@ -40,5 +38,5 @@ Basic profile:
 - Marital status: **Single**
 - Nationality: **Filipino**
 
-Social media accounts:
+Social media accounts and other links:
 - [Facebook](https://www.facebook.com/profile.php?id=61556761568251)
