@@ -30,6 +30,10 @@ a:focus {
   -webkit-font-smoothing: antialiased !important;
 }
 
+.fa-folder:before {
+  color: #ae81ff;
+}
+
 
 #logout {
   font-family: "Proxima Nova", sans-serif;

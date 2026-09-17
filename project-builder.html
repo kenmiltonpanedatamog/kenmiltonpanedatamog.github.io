@@ -17,22 +17,47 @@
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans p-6">
 
+    <!-- Navigation Header -->
+    <nav class="max-w-6xl mx-auto mb-6 flex flex-wrap items-center justify-between gap-3 border-b border-gray-200 pb-4">
+        <div class="flex flex-wrap items-center gap-2">
+            <a href="post-builder.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition">
+                <i class="fa-solid fa-pen-nib mr-1.5"></i> Post Builder
+            </a>
+            <a href="news-builder.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition">
+                <i class="fa-solid fa-newspaper mr-1.5"></i> News Builder
+            </a>
+            <a href="project-builder.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-purple-600 text-white shadow-sm">
+                <i class="fa-solid fa-flask mr-1.5"></i> Project Builder
+            </a>
+            <a href="book-builder.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition">
+                <i class="fa-solid fa-book mr-1.5"></i> Book Builder
+            </a>
+        </div>
+        <div id="top-status-indicator" class="text-xs"></div>
+    </nav>
+
     <div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-6">
         <div class="flex-1 max-w-4xl">
             <h1 class="text-4xl font-bold mb-6 text-gray-900"><i class="fa-solid fa-flask mr-2"></i> Local Project Builder</h1>
 
             <!-- Connection Section -->
-            <div id="setup-section" class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-8">
-                <h2 class="text-xl font-semibold mb-2">Connect to Project</h2>
-                <p class="text-gray-600 mb-4">Click below and select your Jekyll root folder to grant the browser permission to save files directly to <code>_projects</code> and <code>assets/img</code>.</p>
-                <button id="connect-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded transition">
-                    <i class="fa-solid fa-folder-open mr-2"></i> Select Project Folder
-                </button>
-                <p id="connection-status" class="mt-3 text-sm text-green-600 hidden"><i class="fa-solid fa-check-circle mr-1"></i> Connected to folder!</p>
+            <div id="setup-section" class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-8 transition-all">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <h2 class="text-xl font-semibold mb-1 flex items-center" id="connection-title">
+                            <i class="fa-solid fa-folder-tree mr-2 text-purple-600"></i> Project Connection
+                        </h2>
+                        <p class="text-gray-600 text-sm" id="connection-desc">
+                            Detecting local project connection...
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-2" id="connection-actions"></div>
+                </div>
+                <div id="connection-details" class="mt-3 text-xs text-gray-500 border-t pt-3 hidden"></div>
             </div>
 
             <!-- Editor Section -->
-            <div id="editor-section" class="hidden opacity-50 pointer-events-none transition-opacity duration-300">
+            <div id="editor-section" class="transition-opacity duration-300">
                 
                 <!-- Front Matter -->
                 <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
@@ -41,35 +66,30 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Title</label>
-                            <input type="text" id="fm-title" class="w-full border border-gray-300 rounded p-2 focus:ring focus:ring-blue-200 focus:border-blue-500" placeholder="My Awesome Project">
+                            <input type="text" id="fm-title" class="w-full border border-gray-300 rounded p-2 focus:ring focus:ring-purple-200 focus:border-purple-500" placeholder="e.g. Machine Learning Pipeline">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                            <input type="text" id="fm-description" class="w-full border border-gray-300 rounded p-2 focus:ring focus:ring-blue-200 focus:border-blue-500" placeholder="A short description of the project">
+                            <input type="text" id="fm-description" class="w-full border border-gray-300 rounded p-2 focus:ring focus:ring-purple-200 focus:border-purple-500" placeholder="A short summary of the project">
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Importance (Priority)</label>
-                            <input type="number" id="fm-importance" class="w-full border border-gray-300 rounded p-2 focus:ring focus:ring-blue-200 focus:border-blue-500" value="1" min="1" max="100">
-                            <p class="text-xs text-gray-500 mt-1">Lower numbers appear first.</p>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Importance (Order)</label>
+                            <input type="number" id="fm-importance" class="w-full border border-gray-300 rounded p-2 focus:ring focus:ring-purple-200 focus:border-purple-500" value="1" min="1">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Category</label>
-                            <input type="text" id="fm-category" class="w-full border border-gray-300 rounded p-2 focus:ring focus:ring-blue-200 focus:border-blue-500" placeholder="work">
-                            <div class="flex flex-wrap gap-2 text-xs mt-2">
-                                <button class="tag-badge bg-blue-100 text-blue-800 px-2 py-1 rounded hover:bg-blue-200 transition" data-category="work">work</button>
-                                <button class="tag-badge bg-blue-100 text-blue-800 px-2 py-1 rounded hover:bg-blue-200 transition" data-category="fun">fun</button>
-                            </div>
+                            <input type="text" id="fm-category" class="w-full border border-gray-300 rounded p-2 focus:ring focus:ring-purple-200 focus:border-purple-500" placeholder="e.g. research, work">
                         </div>
                     </div>
 
-                    <div class="mb-4">
+                    <div class="mt-4">
                         <label class="block text-sm font-medium text-gray-700 mb-1">Cover Image</label>
                         <input type="hidden" id="fm-thumbnail" value="">
                         <div id="thumbnail-container" class="mt-1">
-                            <div id="thumbnail-dropzone" class="dropzone border-2 border-dashed border-gray-300 rounded-lg p-4 text-center transition">
+                            <div id="thumbnail-dropzone" class="dropzone border-2 border-dashed border-gray-300 rounded-lg p-4 text-center transition cursor-pointer hover:border-purple-400">
                                 <i class="fa-solid fa-image text-xl text-gray-400 mb-1"></i>
                                 <p class="text-sm text-gray-600">Drag & Drop cover image</p>
                             </div>
@@ -85,14 +105,14 @@
                     </div>
 
                     <div class="flex items-center mt-4 border-t pt-4">
-                        <input type="checkbox" id="fm-related" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                        <input type="checkbox" id="fm-related" class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded">
                         <label for="fm-related" class="ml-2 block text-sm text-gray-900 font-medium">Show related publications</label>
                     </div>
                 </div>
 
                 <!-- Blocks Area -->
                 <div class="mb-6">
-                    <h2 class="text-lg font-semibold mb-2">Project Details</h2>
+                    <h2 class="text-lg font-semibold mb-2">Project Body (Markdown format)</h2>
                     <div id="blocks-container" class="space-y-4 min-h-[100px] p-2 bg-gray-100 rounded-lg border border-gray-200">
                         <!-- Blocks will be injected here -->
                     </div>
@@ -110,16 +130,21 @@
 
                 <!-- Output Settings -->
                 <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200 mb-6 flex items-center">
-                    <input type="checkbox" id="fmt-obsidian" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                    <input type="checkbox" id="fmt-obsidian" class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded">
                     <label for="fmt-obsidian" class="ml-2 block text-sm text-gray-900">Use Native Obsidian Image Formatting <code>![[filename.ext]]</code></label>
                 </div>
 
                 <!-- Save Action -->
-                <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex justify-between items-center">
-                    <span id="save-status" class="text-sm text-gray-500">All files will be saved directly to your local project.</span>
-                    <button id="save-btn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg shadow transition text-lg">
-                        <i class="fa-solid fa-save mr-2"></i> Save Project
-                    </button>
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex flex-col sm:flex-row justify-between items-center gap-4">
+                    <span id="save-status" class="text-sm text-gray-500">Ready to save project.</span>
+                    <div class="flex items-center space-x-3">
+                        <button id="copy-btn" type="button" class="bg-gray-700 hover:bg-gray-800 text-white font-medium py-3 px-5 rounded-lg shadow transition text-base flex items-center">
+                            <i class="fa-regular fa-copy mr-2"></i> Copy Markdown
+                        </button>
+                        <button id="save-btn" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-7 rounded-lg shadow transition text-base flex items-center">
+                            <i class="fa-solid fa-save mr-2"></i> Save Project
+                        </button>
+                    </div>
                 </div>
                 
             </div>
@@ -152,11 +177,14 @@
                     </div>
                     <div>
                         <p class="font-semibold text-gray-900 text-xs uppercase tracking-wide">Quotes</p>
-                        <code class="bg-gray-100 px-1 py-0.5 rounded text-xs block mt-1">> Quoted text</code>
+                        <code class="bg-gray-100 px-1 py-0.5 rounded text-xs block mt-1">&gt; Quoted text</code>
                     </div>
                 </div>
                 
-                <button id="disconnect-btn" class="mt-8 w-full text-center text-xs text-red-500 hover:text-red-700 transition">Disconnect Folder</button>
+                <div class="mt-8 pt-4 border-t border-gray-200 text-xs text-gray-500">
+                    <p class="font-semibold text-gray-700 mb-1">Linux Tip:</p>
+                    <p>Run <code>python3 builder_server.py</code> in terminal to auto-save files directly to disk.</p>
+                </div>
             </div>
         </div>
     </div>
@@ -166,7 +194,7 @@
         <div class="block-item bg-white p-4 rounded shadow-sm border border-gray-200 flex items-start group" data-type="text">
             <div class="drag-handle text-gray-400 hover:text-gray-600 p-2 mr-2"><i class="fa-solid fa-grip-vertical"></i></div>
             <div class="flex-1">
-                <textarea class="w-full border border-gray-300 rounded p-3 h-32 font-mono text-sm focus:ring focus:ring-blue-200 focus:border-blue-500" placeholder="Write markdown here..."></textarea>
+                <textarea class="w-full border border-gray-300 rounded p-3 h-32 font-mono text-sm focus:ring focus:ring-purple-200 focus:border-purple-500" placeholder="Write markdown here..."></textarea>
             </div>
             <button class="delete-btn ml-2 p-2 text-red-400 hover:text-red-600 opacity-0 group-hover:opacity-100 transition"><i class="fa-solid fa-trash"></i></button>
         </div>
@@ -176,16 +204,16 @@
         <div class="block-item bg-white p-4 rounded shadow-sm border border-gray-200 flex items-start group" data-type="image" data-img-path="" data-img-filename="">
             <div class="drag-handle text-gray-400 hover:text-gray-600 p-2 mr-2"><i class="fa-solid fa-grip-vertical"></i></div>
             <div class="flex-1">
-                <div class="dropzone border-2 border-dashed border-gray-300 rounded-lg p-10 text-center transition">
+                <div class="dropzone border-2 border-dashed border-gray-300 rounded-lg p-10 text-center transition cursor-pointer hover:border-purple-400">
                     <i class="fa-solid fa-cloud-arrow-up text-3xl text-gray-400 mb-2"></i>
-                    <p class="text-gray-600">Drag & Drop an image file here</p>
+                    <p class="text-gray-600">Drag &amp; Drop an image file here</p>
                     <p class="text-xs text-gray-400 mt-1">Image will be saved to assets/img/</p>
                 </div>
                 <div class="preview hidden flex items-center p-2 bg-gray-50 rounded border border-gray-200">
                     <img src="" class="h-24 w-24 object-cover rounded shadow-sm mr-4" />
-                    <div>
-                        <p class="font-medium text-gray-800 filename-display"></p>
-                        <p class="text-xs text-gray-500 path-display"></p>
+                    <div class="flex-1 min-w-0">
+                        <p class="font-medium text-gray-800 filename-display truncate"></p>
+                        <p class="text-xs text-gray-500 path-display truncate"></p>
                     </div>
                 </div>
             </div>
@@ -194,7 +222,245 @@
     </template>
 
     <script>
-        let dirHandle = null;
+        // ==========================================
+        // Unified Filesystem Adapter (fsAdapter)
+        // ==========================================
+        const fsAdapter = {
+            mode: 'detecting',
+            serverUrl: null,
+            dirHandle: null,
+
+            async detectServer() {
+                const candidates = [];
+                if (window.location.origin && window.location.origin.startsWith('http')) {
+                    candidates.push(window.location.origin);
+                }
+                candidates.push('http://127.0.0.1:8000', 'http://localhost:8000');
+
+                for (const url of candidates) {
+                    try {
+                        const controller = new AbortController();
+                        const timer = setTimeout(() => controller.abort(), 1000);
+                        const res = await fetch(`${url}/api/status`, { signal: controller.signal, mode: 'cors' });
+                        clearTimeout(timer);
+                        if (res.ok) {
+                            const data = await res.json();
+                            if (data.ok && data.mode === 'server') {
+                                this.serverUrl = url;
+                                this.mode = 'server';
+                                return true;
+                            }
+                        }
+                    } catch (e) {}
+                }
+                return false;
+            },
+
+            async init() {
+                const hasServer = await this.detectServer();
+                if (hasServer) {
+                    this.updateUI();
+                    return;
+                }
+
+                if ('showDirectoryPicker' in window && window.isSecureContext) {
+                    try {
+                        const cached = await idbKeyval.get('jekyll-dir');
+                        if (cached && cached.queryPermission) {
+                            const perm = await cached.queryPermission({ mode: 'readwrite' });
+                            if (perm === 'granted') {
+                                this.dirHandle = cached;
+                                this.mode = 'native';
+                                this.updateUI();
+                                return;
+                            }
+                        }
+                    } catch (e) {
+                        console.warn("Cached handle check failed:", e);
+                    }
+                }
+
+                this.mode = 'standalone';
+                this.updateUI();
+            },
+
+            async connectFolderPicker() {
+                if (!('showDirectoryPicker' in window)) {
+                    alert("Directory picker is not supported in this browser (common in Firefox). Use 'python3 builder_server.py' in terminal to save directly to disk, or use Standalone Download mode.");
+                    return;
+                }
+                try {
+                    let cached = await idbKeyval.get('jekyll-dir');
+                    if (cached && cached.requestPermission) {
+                        const perm = await cached.requestPermission({ mode: 'readwrite' });
+                        if (perm === 'granted') {
+                            this.dirHandle = cached;
+                            this.mode = 'native';
+                            this.updateUI();
+                            return;
+                        }
+                    }
+                    const handle = await window.showDirectoryPicker({ mode: 'readwrite' });
+                    try {
+                        await handle.getDirectoryHandle('_projects');
+                    } catch(e) {
+                        try {
+                            await handle.getDirectoryHandle('_posts');
+                        } catch(e2) {
+                            alert("Warning: Could not find '_projects' or '_posts' directory. Please ensure you picked the Jekyll root folder.");
+                        }
+                    }
+                    await idbKeyval.set('jekyll-dir', handle);
+                    this.dirHandle = handle;
+                    this.mode = 'native';
+                    this.updateUI();
+                } catch (err) {
+                    if (err.name !== 'AbortError') {
+                        console.error(err);
+                        alert("Error connecting folder: " + err.message);
+                    }
+                }
+            },
+
+            async disconnect() {
+                await idbKeyval.del('jekyll-dir');
+                this.dirHandle = null;
+                this.mode = 'standalone';
+                this.updateUI();
+            },
+
+            updateUI() {
+                const titleEl = document.getElementById('connection-title');
+                const descEl = document.getElementById('connection-desc');
+                const actionsEl = document.getElementById('connection-actions');
+                const detailsEl = document.getElementById('connection-details');
+                const indicatorEl = document.getElementById('top-status-indicator');
+                const saveBtn = document.getElementById('save-btn');
+
+                if (this.mode === 'server') {
+                    titleEl.innerHTML = '<i class="fa-solid fa-server mr-2 text-purple-600"></i> Connected to Linux Filesystem (Local Server)';
+                    descEl.innerHTML = 'Projects and cover images will be written directly to your local Jekyll project.';
+                    actionsEl.innerHTML = `
+                        <span class="text-xs bg-purple-100 text-purple-800 font-mono px-3 py-1.5 rounded-lg border border-purple-200">
+                            <i class="fa-solid fa-circle text-[8px] text-purple-500 mr-1"></i> ${this.serverUrl}
+                        </span>
+                        <button id="recheck-server-btn" class="text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1.5 rounded-lg border transition">
+                            <i class="fa-solid fa-rotate mr-1"></i> Refresh
+                        </button>
+                    `;
+                    detailsEl.classList.remove('hidden');
+                    detailsEl.innerHTML = '<span class="text-purple-700 font-medium">Ready: Direct filesystem save active for _projects/ and assets/img/projects/</span>';
+                    indicatorEl.innerHTML = '<span class="bg-purple-100 text-purple-800 text-xs px-2.5 py-1 rounded-full font-medium"><i class="fa-solid fa-bolt mr-1"></i> Server Active</span>';
+                    saveBtn.innerHTML = '<i class="fa-solid fa-save mr-2"></i> Save Project';
+                    document.getElementById('recheck-server-btn').addEventListener('click', () => this.init());
+                } else if (this.mode === 'native') {
+                    titleEl.innerHTML = '<i class="fa-solid fa-folder-check mr-2 text-blue-600"></i> Connected via Browser Folder Handle';
+                    descEl.innerHTML = 'Browser has read/write access to your selected Jekyll directory.';
+                    actionsEl.innerHTML = `
+                        <button id="disconnect-btn" class="text-xs bg-red-50 hover:bg-red-100 text-red-600 px-3 py-1.5 rounded-lg border border-red-200 transition">
+                            <i class="fa-solid fa-unlink mr-1"></i> Disconnect
+                        </button>
+                    `;
+                    detailsEl.classList.remove('hidden');
+                    detailsEl.innerHTML = '<span class="text-blue-700 font-medium">Ready: Saving directly via Chromium File System Handle</span>';
+                    indicatorEl.innerHTML = '<span class="bg-blue-100 text-blue-800 text-xs px-2.5 py-1 rounded-full font-medium"><i class="fa-solid fa-folder mr-1"></i> Folder Handle</span>';
+                    saveBtn.innerHTML = '<i class="fa-solid fa-save mr-2"></i> Save Project';
+                    document.getElementById('disconnect-btn').addEventListener('click', () => this.disconnect());
+                } else {
+                    titleEl.innerHTML = '<i class="fa-solid fa-laptop-code mr-2 text-amber-600"></i> Standalone Mode (Linux / Browser)';
+                    descEl.innerHTML = 'Direct server is offline. Run <code class="bg-gray-100 px-1.5 py-0.5 rounded text-gray-800 font-mono text-xs">python3 builder_server.py</code> in your project directory for 1-click auto-saving, or use manual download/copy below.';
+                    actionsEl.innerHTML = `
+                        <button id="recheck-server-btn" class="text-xs bg-amber-100 hover:bg-amber-200 text-amber-900 px-3 py-1.5 rounded-lg border border-amber-300 font-medium transition">
+                            <i class="fa-solid fa-rotate mr-1"></i> Connect Local Server
+                        </button>
+                        ${'showDirectoryPicker' in window ? `
+                            <button id="connect-folder-btn" class="text-xs bg-blue-50 hover:bg-blue-100 text-blue-700 px-3 py-1.5 rounded-lg border border-blue-300 font-medium transition">
+                                <i class="fa-solid fa-folder-open mr-1"></i> Select Folder
+                            </button>
+                        ` : ''}
+                    `;
+                    detailsEl.classList.remove('hidden');
+                    detailsEl.innerHTML = '<span class="text-gray-600">The editor is fully functional. Clicking Save will download the generated Markdown file and images directly.</span>';
+                    indicatorEl.innerHTML = '<span class="bg-amber-100 text-amber-800 text-xs px-2.5 py-1 rounded-full font-medium"><i class="fa-solid fa-file-arrow-down mr-1"></i> Standalone</span>';
+                    saveBtn.innerHTML = '<i class="fa-solid fa-download mr-2"></i> Download Project';
+
+                    document.getElementById('recheck-server-btn').addEventListener('click', () => this.init());
+                    const folderBtn = document.getElementById('connect-folder-btn');
+                    if (folderBtn) folderBtn.addEventListener('click', () => this.connectFolderPicker());
+                }
+            },
+
+            async saveMarkdown(folder, filename, content) {
+                if (this.mode === 'server') {
+                    const res = await fetch(`${this.serverUrl}/api/save`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ folder, filename, content })
+                    });
+                    const data = await res.json();
+                    if (!res.ok || !data.ok) throw new Error(data.error || 'Failed to save file on server');
+                    return { mode: 'server', path: data.path };
+                }
+
+                if (this.mode === 'native' && this.dirHandle) {
+                    const folderHandle = await this.dirHandle.getDirectoryHandle(folder, { create: true });
+                    const fileHandle = await folderHandle.getFileHandle(filename, { create: true });
+                    const writable = await fileHandle.createWritable();
+                    await writable.write(content);
+                    await writable.close();
+                    return { mode: 'native', path: `${folder}/${filename}` };
+                }
+
+                const blob = new Blob([content], { type: 'text/markdown;charset=utf-8;' });
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                return { mode: 'standalone', path: `${folder}/${filename}` };
+            },
+
+            async saveImageFile(folder, filename, file) {
+                if (this.mode === 'server') {
+                    const base64 = await new Promise((resolve, reject) => {
+                        const reader = new FileReader();
+                        reader.onload = () => resolve(reader.result);
+                        reader.onerror = reject;
+                        reader.readAsDataURL(file);
+                    });
+                    const res = await fetch(`${this.serverUrl}/api/upload`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ folder, filename, data: base64 })
+                    });
+                    const data = await res.json();
+                    if (!res.ok || !data.ok) throw new Error(data.error || 'Failed to upload image on server');
+                    return { mode: 'server', path: data.path };
+                }
+
+                if (this.mode === 'native' && this.dirHandle) {
+                    const parts = folder.split('/');
+                    let cur = this.dirHandle;
+                    for (const p of parts) {
+                        cur = await cur.getDirectoryHandle(p, { create: true });
+                    }
+                    const fileHandle = await cur.getFileHandle(filename, { create: true });
+                    const writable = await fileHandle.createWritable();
+                    await writable.write(file);
+                    await writable.close();
+                    return { mode: 'native', path: `${folder}/${filename}` };
+                }
+
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(file);
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                return { mode: 'standalone', path: `${folder}/${filename}` };
+            }
+        };
 
         // Setup Sortable
         const blocksContainer = document.getElementById('blocks-container');
@@ -202,92 +468,6 @@
             animation: 150,
             handle: '.drag-handle',
             ghostClass: 'opacity-50'
-        });
-
-        // Category Badges Logic
-        document.querySelectorAll('.tag-badge').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const cat = e.target.dataset.category;
-                document.getElementById('fm-category').value = cat;
-            });
-        });
-
-        // Connection Logic
-        async function enableEditor(handle) {
-            dirHandle = handle;
-            document.getElementById('connection-status').classList.remove('hidden');
-            const btn = document.getElementById('connect-btn');
-            btn.classList.replace('bg-blue-600', 'bg-green-600');
-            btn.classList.replace('hover:bg-blue-700', 'hover:bg-green-700');
-            btn.innerHTML = '<i class="fa-solid fa-check mr-2"></i> Folder Connected';
-            
-            const editor = document.getElementById('editor-section');
-            editor.classList.remove('hidden');
-            setTimeout(() => {
-                editor.classList.remove('opacity-50', 'pointer-events-none');
-            }, 10);
-        }
-
-        // Check cache on load
-        window.addEventListener('DOMContentLoaded', async () => {
-            const cachedHandle = await idbKeyval.get('jekyll-dir');
-            if (cachedHandle) {
-                try {
-                    const perm = await cachedHandle.verifyPermission({ mode: 'readwrite' });
-                    if (perm === 'granted') {
-                        enableEditor(cachedHandle);
-                        if (document.getElementById('blocks-container').children.length === 0) {
-                            addTextBlock();
-                        }
-                    } else {
-                        document.getElementById('connect-btn').innerText = "Restore Folder Connection";
-                    }
-                } catch (e) {
-                    console.error("Cache verification failed", e);
-                }
-            }
-        });
-
-        document.getElementById('connect-btn').addEventListener('click', async () => {
-            try {
-                let cachedHandle = await idbKeyval.get('jekyll-dir');
-                if (cachedHandle) {
-                    const perm = await cachedHandle.requestPermission({ mode: 'readwrite' });
-                    if (perm === 'granted') {
-                        enableEditor(cachedHandle);
-                        if (document.getElementById('blocks-container').children.length === 0) addTextBlock();
-                        return;
-                    }
-                }
-
-                const handle = await window.showDirectoryPicker({ mode: 'readwrite' });
-                
-                try {
-                    await handle.getDirectoryHandle('_projects');
-                } catch(e) {
-                    // Try getting _posts as fallback check
-                    try {
-                        await handle.getDirectoryHandle('_posts');
-                    } catch(e) {
-                        alert("Warning: Could not find '_projects' or '_posts' folder. Are you sure you selected the Jekyll root folder?");
-                    }
-                }
-
-                await idbKeyval.set('jekyll-dir', handle);
-                enableEditor(handle);
-                if (document.getElementById('blocks-container').children.length === 0) addTextBlock();
-
-            } catch (err) {
-                console.error(err);
-                if (err.name !== 'AbortError') {
-                    alert('Error connecting folder: ' + err.message);
-                }
-            }
-        });
-
-        document.getElementById('disconnect-btn').addEventListener('click', async () => {
-            await idbKeyval.del('jekyll-dir');
-            location.reload();
         });
 
         // Block Management
@@ -346,23 +526,11 @@
                     return;
                 }
 
-                if (!dirHandle) {
-                    alert('You must connect the project folder first!');
-                    return;
-                }
-
                 dropzone.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-3xl text-gray-400 mb-2"></i><p>Saving image...</p>';
 
                 try {
-                    const assetsHandle = await dirHandle.getDirectoryHandle('assets', { create: true });
-                    const imgHandle = await assetsHandle.getDirectoryHandle('img', { create: true });
-                    
                     const safeName = file.name.replace(/[^a-zA-Z0-9.\-_]/g, '_');
-                    const fileHandle = await imgHandle.getFileHandle(safeName, { create: true });
-                    
-                    const writable = await fileHandle.createWritable();
-                    await writable.write(file);
-                    await writable.close();
+                    await fsAdapter.saveImageFile('assets/img', safeName, file);
 
                     const imgPath = `assets/img/${safeName}`;
                     blockEl.dataset.imgPath = imgPath;
@@ -413,24 +581,11 @@
                     return;
                 }
 
-                if (!dirHandle) {
-                    alert('You must connect the project folder first!');
-                    return;
-                }
-
                 dropzone.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-xl text-gray-400 mb-1"></i><p class="text-sm">Saving...</p>';
 
                 try {
-                    const assetsHandle = await dirHandle.getDirectoryHandle('assets', { create: true });
-                    const imgHandle = await assetsHandle.getDirectoryHandle('img', { create: true });
-                    const projectsHandle = await imgHandle.getDirectoryHandle('projects', { create: true });
-                    
                     const safeName = file.name.replace(/[^a-zA-Z0-9.\-_]/g, '_');
-                    const fileHandle = await projectsHandle.getFileHandle(safeName, { create: true });
-                    
-                    const writable = await fileHandle.createWritable();
-                    await writable.write(file);
-                    await writable.close();
+                    await fsAdapter.saveImageFile('assets/img/projects', safeName, file);
 
                     const imgPath = `assets/img/projects/${safeName}`;
                     hiddenInput.value = imgPath;
@@ -459,10 +614,8 @@
         }
         setupThumbnailDropzone();
 
-        // Generate and Save Project
-        document.getElementById('save-btn').addEventListener('click', async () => {
-            if (!dirHandle) return alert('Please connect project folder first!');
-
+        // Build Markdown
+        function generateMarkdown() {
             const title = document.getElementById('fm-title').value.trim();
             const description = document.getElementById('fm-description').value.trim();
             const importance = document.getElementById('fm-importance').value;
@@ -471,6 +624,56 @@
             const useObsidian = document.getElementById('fmt-obsidian').checked;
             const thumbnail = document.getElementById('fm-thumbnail').value.trim();
 
+            let md = `---\n`;
+            md += `layout: page\n`;
+            md += `title: ${title}\n`;
+            if (description) md += `description: ${description}\n`;
+            if (thumbnail) md += `img: ${thumbnail}\n`;
+            if (importance) md += `importance: ${importance}\n`;
+            if (category) md += `category: ${category}\n`;
+            if (isRelated) md += `related_publications: true\n`;
+            md += `---\n\n`;
+
+            const blockEls = document.querySelectorAll('.block-item');
+            blockEls.forEach(el => {
+                const type = el.dataset.type;
+                if (type === 'text') {
+                    md += el.querySelector('textarea').value + '\n\n';
+                } else if (type === 'image') {
+                    const imgPath = el.dataset.imgPath;
+                    const imgFilename = el.dataset.imgFilename;
+                    if (imgPath) {
+                        if (useObsidian) {
+                            md += `![[${imgFilename}]]\n\n`;
+                        } else {
+                            md += `{% include figure.liquid loading="eager" path="${imgPath}" class="img-fluid rounded z-depth-1" zoomable=true %}\n\n`;
+                        }
+                    }
+                }
+            });
+            return md;
+        }
+
+        // Copy Markdown to Clipboard
+        document.getElementById('copy-btn').addEventListener('click', async () => {
+            const title = document.getElementById('fm-title').value.trim();
+            if (!title) return alert('Please enter a title first.');
+            const md = generateMarkdown();
+            try {
+                await navigator.clipboard.writeText(md);
+                const statusEl = document.getElementById('save-status');
+                statusEl.innerHTML = `<span class="text-purple-600 font-medium"><i class="fa-solid fa-copy mr-1"></i> Markdown copied to clipboard!</span>`;
+                setTimeout(() => {
+                    statusEl.innerText = 'Ready to save project.';
+                }, 3000);
+            } catch (err) {
+                alert('Could not copy to clipboard: ' + err.message);
+            }
+        });
+
+        // Generate and Save Project
+        document.getElementById('save-btn').addEventListener('click', async () => {
+            const title = document.getElementById('fm-title').value.trim();
             if (!title) return alert('Please enter a title.');
 
             const saveBtn = document.getElementById('save-btn');
@@ -479,47 +682,18 @@
             saveBtn.disabled = true;
 
             try {
-                // Generate Markdown
-                let md = `---\n`;
-                md += `layout: page\n`;
-                md += `title: ${title}\n`;
-                if (description) md += `description: ${description}\n`;
-                if (thumbnail) md += `img: ${thumbnail}\n`;
-                if (importance) md += `importance: ${importance}\n`;
-                if (category) md += `category: ${category}\n`;
-                if (isRelated) md += `related_publications: true\n`;
-                md += `---\n\n`;
-
-                const blockEls = document.querySelectorAll('.block-item');
-                blockEls.forEach(el => {
-                    const type = el.dataset.type;
-                    if (type === 'text') {
-                        md += el.querySelector('textarea').value + '\n\n';
-                    } else if (type === 'image') {
-                        const imgPath = el.dataset.imgPath;
-                        const imgFilename = el.dataset.imgFilename;
-                        if (imgPath) {
-                            if (useObsidian) {
-                                md += `![[${imgFilename}]]\n\n`;
-                            } else {
-                                md += `{% include figure.liquid loading="eager" path="${imgPath}" class="img-fluid rounded z-depth-1" zoomable=true %}\n\n`;
-                            }
-                        }
-                    }
-                });
-
-                // Generate filename
+                const md = generateMarkdown();
                 const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
                 const filename = `${slug}.md`;
 
-                // Write file
-                const projectsHandle = await dirHandle.getDirectoryHandle('_projects', { create: true });
-                const fileHandle = await projectsHandle.getFileHandle(filename, { create: true });
-                const writable = await fileHandle.createWritable();
-                await writable.write(md);
-                await writable.close();
+                const result = await fsAdapter.saveMarkdown('_projects', filename, md);
 
-                document.getElementById('save-status').innerHTML = `<span class="text-green-600 font-medium"><i class="fa-solid fa-check mr-1"></i> Saved successfully to _projects/${filename}</span>`;
+                const statusEl = document.getElementById('save-status');
+                if (result.mode === 'standalone') {
+                    statusEl.innerHTML = `<span class="text-purple-600 font-medium"><i class="fa-solid fa-download mr-1"></i> Downloaded ${filename} (move to _projects/)</span>`;
+                } else {
+                    statusEl.innerHTML = `<span class="text-purple-600 font-medium"><i class="fa-solid fa-check mr-1"></i> Saved successfully to _projects/${filename}</span>`;
+                }
                 
                 // Clear form for next project after 2 seconds
                 setTimeout(() => {
@@ -537,7 +711,7 @@
                     
                     saveBtn.innerHTML = originalBtnHtml;
                     saveBtn.disabled = false;
-                    document.getElementById('save-status').innerHTML = '<span class="text-gray-500">Form cleared for a new project.</span>';
+                    statusEl.innerHTML = '<span class="text-gray-500">Form cleared for a new project.</span>';
                 }, 2000);
 
             } catch (err) {
@@ -545,6 +719,14 @@
                 alert('Error saving project: ' + err.message);
                 saveBtn.innerHTML = originalBtnHtml;
                 saveBtn.disabled = false;
+            }
+        });
+
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', async () => {
+            await fsAdapter.init();
+            if (document.getElementById('blocks-container').children.length === 0) {
+                addTextBlock();
             }
         });
     </script>
