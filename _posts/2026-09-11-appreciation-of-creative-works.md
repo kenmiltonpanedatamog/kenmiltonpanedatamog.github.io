@@ -18,11 +18,11 @@ Someone out there is watching a show,
 <br>
 Someone out there is watching a video,
 <br>
-Someone out there is listening to a music,
+Someone out there is listening to music,
 <br>
 Someone out there is listening to a podcast episode,
 <br>
 Someone out there is listening to a speech...
 <br>
 
-All of them being inspired or touched, feeling joy or sadness, experiencing what is it to be and be in a certain place and time, connecting with characters unknown... Someone out there is forever changed because they saw or heard a work that deeply connected with them.
+All of them being inspired or touched, feeling joy or sadness, experiencing what it is to be and be in a certain place and time, connecting with characters unknown... Someone out there is forever changed because they saw or heard a work that deeply connected with them.

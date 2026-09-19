@@ -14,11 +14,11 @@ These are some highlights and notes I had when I read War and Peace.
 
 [XI] When in doubt inaction is far preferable to action. Tolstoy endorses this belief at the end of the novel.
 
-[XV] p. 773. *I came to this sudden realization that the goal of having a war, no matter how counterintuitive is to have peace... Chapter 16 of Book 12 is the ultimate/best chapter I think so far because I can see how war became the metaphor for life and peace for death. War wants peace but not the other way around. Having peace don't have the need for war. This is similar to life and death where life has an end of death but death don't come to be alive...*
+[XV] p. 773. *I came to this sudden realization that the goal of having a war, no matter how counterintuitive it is to have peace... Chapter 16 of Book 12 is the ultimate/best chapter I think so far because I can see how war became the metaphor for life and peace for death. War wants peace but not the other way around. Having peace doesn't have the need for war. This is similar to life and death where life has an end of death but death doesn't come to be alive...*
 
 [57] In this world one has to be cunning and cruel.
 
-[75] God has nothing to do with it! (*Religion, surprisingly, will become a topic across this book, I had this pre-conceived notion that Russians are atheist, maybe they are in some eras, but the epoch in this book certainly consists of religious people, but surprisingly, there also exist people who don't believe in God, as shown in the quote.*)
+[75] God has nothing to do with it! (*Religion, surprisingly, will become a topic across this book, I had this preconceived notion that Russians are atheist, maybe they are in some eras, but the epoch in this book certainly consists of religious people, but surprisingly, there also exist people who don't believe in God, as shown in the quote.*)
 
 [80] “The only thing that is hard for me... I will tell you the truth, Andrew... is Father’s way of treating religious subjects. I don’t understand how a man of his immense intellect can fail to see what is as clear as day, and can go so far astray. That is the only thing that makes me unhappy. But even in this I can see lately a shade of improvement. His satire has been less bitter of late, and there was a monk he received and had a long talk with.” 
 
@@ -70,7 +70,7 @@ And the owner of the manly voice, evidently an infantry officer, laughed.
 
 [203]
 
-- In waging war, it is often better not to attack if there is no gain foreseen, but one must be ready to defend or wage attack in an instant if enemy movements shows an increasing possibility of an attack. Waiting often signals to the enemy that you are not capable of attacking so the importance of being selective on waging but still being ready is utmost in winning.
+- In waging war, it is often better not to attack if there is no gain foreseen, but one must be ready to defend or wage attack in an instant if enemy movements show an increasing possibility of an attack. Waiting often signals to the enemy that you are not capable of attacking so the importance of being selective on waging but still being ready is utmost in winning.
 
 [217] All is vanity, all falsehood, except that infinite sky. There is nothing, nothing, but that. But even it does not exist, there is nothing but quiet and peace.
 

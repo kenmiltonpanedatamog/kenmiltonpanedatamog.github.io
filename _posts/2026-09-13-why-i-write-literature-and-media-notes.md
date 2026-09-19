@@ -15,7 +15,7 @@ The following reasons for writing these notes are listed below in no particular 
 
 Having a so called “second brain” is just a fancy way of saying this: My brain will forget, but I don’t want to forget, thus I need a way for my thoughts to be preserved indefinitely.
 
-Any system of preserving our thoughts other than remembering them will serve the purpose of mitigating our lack of an indefinite memory. In the past, this was done by carving messages into stones or printing on paper. But in our digital age, it has never been easier to store an abundant amount of information conveniently. Digital data don’t forget or just disappear by design, but technology still fail, so the information we store on digital mediums is still indefinite. But it is better than our own memory.
+Any system of preserving our thoughts other than remembering them will serve the purpose of mitigating our lack of an indefinite memory. In the past, this was done by carving messages into stones or printing on paper. But in our digital age, it has never been easier to store an abundant amount of information conveniently. Digital data doesn't forget or just disappear by design, but technology still fails, so the information we store on digital mediums is still indefinite. But it is better than our own memory.
 
 ## Meditating on different ideas
 

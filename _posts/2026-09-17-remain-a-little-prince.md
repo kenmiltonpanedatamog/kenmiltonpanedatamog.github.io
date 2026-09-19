@@ -11,7 +11,7 @@ That feeling as a kid is naturally lost as we grow up, and personally, I feel li
 
 I was fortunate enough not to be told what to do. I was free to choose my course and most of my decisions in life. But there is still that push factor making me choose something that will be practical. I could be doing other, more fun things today, but I don't have the privilege to do so.
 
-I was just scrolling on my gallery from 2-3 years ago... I see a person who does now care about the future value of what he's doing, but a person who does what he loves. I can't say the same today as even if I do actually love what I do, the fact that I'm doing it for the future rather than my enjoyment makes it not the same. School really breaks any serious love I have for what I'm doing, I feel like a robot just attending lectures and doing course works just to pass.
+I was just scrolling on my gallery from 2-3 years ago... I see a person who does not care about the future value of what he's doing, but a person who does what he loves. I can't say the same today as even if I do actually love what I do, the fact that I'm doing it for the future rather than my enjoyment makes it not the same. School really breaks any serious love I have for what I'm doing, I feel like a robot just attending lectures and doing course works just to pass.
 
 I hope I remain a little Prince who cares for one thing- his rose, or the thing that he loves. I hope I don't become Mr. Prince who just follows what society demands.
 
@@ -19,5 +19,5 @@ That's it for today. Maybe I'm just tired.
 
 ---
 
-(I just watched the movie a few days ago because of Lev Lazarev's Free Program theme. I honestly haven't read the book yet, I am supposed to read it back in 10th grade, but my interest in literature was close to non back then that I probably AI'd my way through the required reflections, which I absolutely regret and feel ashamed now.)
+(I just watched the movie a few days ago because of Lev Lazarev's Free Program theme. I honestly haven't read the book yet, I am supposed to read it back in 10th grade, but my interest in literature was close to none back then that I probably AI'd my way through the required reflections, which I absolutely regret and feel ashamed now.)
 
